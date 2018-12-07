@@ -1,22 +1,26 @@
+import { Box, Button, Heading } from 'grommet';
 import * as React from 'react';
+
 import './App.css';
-
-import logo from './logo.svg';
-
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Box
+        align="center"
+        alignContent="center"
+        alignSelf="stretch"
+        animation={{
+          delay: 100,
+          duration: 1000,
+          size: 'xlarge',
+          type: 'fadeIn'
+        }}>
+        <Heading level="2">Twitter Mobile Notifications Inbox</Heading>
+        <Button primary={true} label="Login" href="/auth" />
+      </Box>
     );
   }
+
 }
 
 export default App;
