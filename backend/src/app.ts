@@ -19,7 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan('dev'));
-app.use(express.static(path.resolve() + '/public/'));
+app.get('/', (req, res) => res.sendFile(path.resolve() + '/public/'));
+app.use('/static', express.static(path.resolve() + '/public/static/'));
 
 // Session Handling
 app.use(cookieParser());

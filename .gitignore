@@ -9,6 +9,8 @@ backend/.env
 client/node_modules
 # production
 client/build
+backend/public/
+backend/dist/
 
 # misc
 client/.DS_Store
