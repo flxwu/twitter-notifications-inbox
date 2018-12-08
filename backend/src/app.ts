@@ -82,9 +82,21 @@ const updateUser = (user: IUserModel, cb: Function) => {
 app.get('/auth', passport.authenticate('twitter'));
 
 app.get('/auth/callback', passport.authenticate('twitter'), function(req, res) {
-  console.log(req.user);
+  // check if client sent cookie
+  let cookie = req.cookies.profile;
+  let profile = JSON.stringify(req.user);
+  if (cookie === undefined) {
+    res.cookie('test', profile, { encode: String, httpOnly: false });
+    console.log('cookie created successfully');
+  } else {
+    console.log('cookie exists', cookie);
+  }
   // Successful authentication, redirect home.
   res.redirect('/');
+});
+
+app.get('/api/getNotifications', (req, res) => {
+  
 });
 
 export default app;
