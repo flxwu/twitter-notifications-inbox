@@ -7,10 +7,14 @@ import cookieParser from 'cookie-parser';
 import MongoConnect from 'connect-mongo';
 import mongoose from 'mongoose';
 import path from 'path';
+import Twit from 'twit';
 const MongoStore = MongoConnect(session);
 
 // Mongo models
 import { User, IUserModel } from './schemas/user';
+
+// Helper functions
+import { getNotificationFriends } from './helpers/api';
 
 const app = express();
 
@@ -60,7 +64,7 @@ passport.use(
       callbackURL: 'http://localhost:5000/auth/callback'
     },
     function(token: String, tokenSecret: String, profile, cb: Function) {
-      const newUser = new User({ name: profile.username, token, tokenSecret });
+      const newUser = new User({ name: profile.username, token, tokenSecret, notificationUsers: [] });
       updateUser(newUser, cb);
     }
   )
@@ -87,6 +91,7 @@ app.get('/auth/callback', passport.authenticate('twitter'), function(req, res) {
   let profile = JSON.stringify(req.user);
   if (cookie === undefined) {
     res.cookie('test', profile, { encode: String, httpOnly: false });
+    req.session.profile = profile;
     console.log('cookie created successfully');
   } else {
     console.log('cookie exists', cookie);
