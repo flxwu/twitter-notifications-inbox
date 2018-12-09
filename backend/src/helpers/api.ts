@@ -2,6 +2,10 @@ import Twit from 'twit';
 
 import { IFriends, IFriendsListPage, ITwitterUser } from '../schemas/twitApi';
 
+/**
+ * Gets all Friends, filters those with notifications on and returns ITwitterUser objects
+ * @param T Twit object
+ */
 export const getNotificationFriends = (T: Twit): Promise<Array<ITwitterUser>> =>
   new Promise<Array<ITwitterUser>>(async (resolve, reject) => {
     const usersArray = await getFollowingUsers(T);
@@ -18,6 +22,10 @@ export const getNotificationFriends = (T: Twit): Promise<Array<ITwitterUser>> =>
 		resolve(filteredArray);
   });
 
+/**
+ * Gets all Friends, iterates through Twitter API pages
+ * @param T Twit object
+ */
 export const getFollowingUsers = (T: Twit): Promise<Array<object>> =>
   new Promise<Array<object>>(async (resolve, reject) => {
     let cursor = -1;
@@ -38,6 +46,11 @@ export const getFollowingUsers = (T: Twit): Promise<Array<object>> =>
     resolve(usersArray);
   });
 
+/**
+ * Gets one page of Friends from the Twitter API
+ * @param T Twit object
+ * @param cursor Twitter API Page cursor (-1 for first page)
+ */
 export const getFollowingUsersPage = async (
   T: Twit,
   cursor: number
