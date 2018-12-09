@@ -95,8 +95,20 @@ app.get('/auth/callback', passport.authenticate('twitter'), function(req, res) {
   res.redirect('/');
 });
 
-app.get('/api/getNotifications', (req, res) => {
-  
+app.get('/api/getNotificationFriends', async (req, res) => {
+  if (req.session.passport == null) {
+    res.status(500);
+    res.send('Not Logged in');
+  }
+  const sessionUser = req.session.passport.user;
+
+  const T = new Twit({
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token: sessionUser.token,
+    access_token_secret: sessionUser.tokenSecret
+  });
+
 });
 
 export default app;
