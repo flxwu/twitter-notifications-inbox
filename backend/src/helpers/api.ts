@@ -1,6 +1,6 @@
 import Twit from 'twit';
 
-import { IFriends, IFriendsListPage, ITwitterUser } from '../schemas/twitApi';
+import { IFriends, IFriendsListPage, ITwitterUser } from '../interfaces/twitApi';
 
 /**
  * Gets all Friends, filters those with notifications on and returns ITwitterUser objects
