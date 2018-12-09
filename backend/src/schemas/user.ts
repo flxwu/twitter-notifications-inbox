@@ -7,7 +7,8 @@ export const UserSchema: Schema = new Schema({
   createdAt: Date,
   name: String,
   token: String,
-  tokenSecret: String
+  tokenSecret: String,
+  notificationUsers: Array
 });
 
 UserSchema.pre('save', function(next: any) {

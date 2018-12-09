@@ -1,4 +1,4 @@
-import { ITwitterUser } from '../schemas/twitApi';
+import { ITwitterUser } from './twitApi';
 
 export interface IUser {
   name?: string;
