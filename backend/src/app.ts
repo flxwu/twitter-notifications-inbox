@@ -109,6 +109,17 @@ app.get('/api/getNotificationFriends', async (req, res) => {
     access_token_secret: sessionUser.tokenSecret
   });
 
+  const followingUsers = await getNotificationFriends(T);
+  User.findOneAndUpdate(
+    { name: sessionUser.name },
+    { notificationUsers: followingUsers },
+    { new: true },
+    (err, doc) => {
+      if (err) console.log(err);
+      else console.log(doc);
+    }
+  );
+  res.json(followingUsers);
 });
 
 export default app;
